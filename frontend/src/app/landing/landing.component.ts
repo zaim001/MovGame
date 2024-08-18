@@ -1,12 +1,33 @@
 import { Component } from '@angular/core';
+import { Game } from '../models/game';
+import { GameService } from '../services/game.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
 export class LandingComponent {
+
+  moviePrompt : string = ''
+  games : Game[] = []
+
+  constructor(private gameService : GameService, private router : Router){}
+
+  getRecommendations(){
+    this.gameService.getGames(this.moviePrompt).subscribe(
+      (data) => {this.games = data ;
+        this.gameService.setGames(data);
+         this.router.navigate(['/games'])},
+      (error) => {
+        console.error('Error fetching game recommendations:', error);
+      }
+    )
+  }
 
 }

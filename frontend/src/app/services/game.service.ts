@@ -7,13 +7,23 @@ import { Game } from '../models/game';
   providedIn: 'root'
 })
 export class GameService {
+
+  private generatedGames: Game[] = [];
   
-  private apiUrl = 'http://localhost:8080/prompt';
+  private apiUrl = 'http://localhost:8080/recommend';
 
   constructor(private http: HttpClient) { }
 
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.apiUrl);
+  getGames(moviePrompt : string): Observable<Game[]> {
+    return this.http.post<Game[]>(this.apiUrl, { moviePrompt });
+  }
+
+  setGames(games: Game[]): void {
+    this.generatedGames = games;
+  }
+
+  getStoredGames(): Game[] {
+    return this.generatedGames;
   }
   
 }
