@@ -3,6 +3,8 @@ package com.movigame.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -25,6 +27,7 @@ public class GeminiService {
     
     @Autowired
     private RawgService rawgService;
+    
 
     @Value("${gemini.api.key}")
     private String geminiKey;
@@ -33,6 +36,7 @@ public class GeminiService {
     private String apiUrlTemplate;
 
     public List<String> callApi(String prompt) {
+    	
         String apiUrl = apiUrlTemplate + "key=" + geminiKey;
 
         HttpHeaders headers = new HttpHeaders();
@@ -57,12 +61,13 @@ public class GeminiService {
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, request, String.class);
 
         // Extract movie titles from the response
-        List<String> movieTitles = extractMovieTitles(response.getBody());
-        return rawgService.getGameInfo(movieTitles);
+        // return response.getBody();
+        List<String> gameTitles = extractGameTitles(response.getBody());
+        return rawgService.getGameInfo(gameTitles);
     }
 
-    private List<String> extractMovieTitles(String responseBody) {
-        List<String> movieTitles = new ArrayList<>();
+    private List<String> extractGameTitles(String responseBody) {
+        List<String> gameTitles = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode rootNode = objectMapper.readTree(responseBody);
@@ -73,21 +78,18 @@ public class GeminiService {
 
                 // Extract titles using a simple regex pattern
                 String[] lines = text.split("\n");
-               // for (String line : lines) {
-                 //   if (line.startsWith("* **")) {
-                   //     String title = line.split("\\*\\*")[1].trim();
-                    //    movieTitles.add(title);
-                   // }
-                //}
                 for (String line : lines) {
-                    String title = line.substring(2).trim(); // Remove leading "- "
-                    System.out.println(title);
-                    movieTitles.add(title);
+                    if (line.length() > 2) { // Ensure the line is long enough
+                        String title = line.substring(2).trim(); // Remove leading "- "
+                        title = title.replace("**", "").trim(); // Remove the '**' around the title
+                        System.out.println(title);
+                        gameTitles.add(title);
+                    }
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to extract movie titles", e);
         }
-        return movieTitles;
+        return gameTitles;
     }
 }
