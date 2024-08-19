@@ -90,5 +90,13 @@ public class RawgService {
         
         return game;
     }
+    public List<Game> getAllGames() {
+        return gameRepo.findAll(); // Fetch all games from the database
+    }
+    
+    public Game getGameById(Long id) {
+    	Game game = gameRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Game not found with ID: " + id));
+    	return game;
+    }
 
 }

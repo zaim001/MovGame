@@ -8,22 +8,17 @@ import { Game } from '../models/game';
 })
 export class GameService {
 
-  private generatedGames: Game[] = [];
-  
-  private apiUrl = 'http://localhost:8080/recommend';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
-  getGames(moviePrompt : string): Observable<Game[]> {
-    return this.http.post<Game[]>(this.apiUrl, { moviePrompt });
+  recommendGames(moviePrompt : string): Observable<Game[]> {
+    return this.http.post<Game[]>(`${this.apiUrl}/recommend`, { moviePrompt });
   }
 
-  setGames(games: Game[]): void {
-    this.generatedGames = games;
+  getGames(): Observable<Game[]>{
+    return this.http.get<Game[]>(`${this.apiUrl}/games`)
   }
 
-  getStoredGames(): Game[] {
-    return this.generatedGames;
-  }
   
 }

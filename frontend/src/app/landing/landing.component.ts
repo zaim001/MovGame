@@ -24,10 +24,9 @@ export class LandingComponent {
   getRecommendations(){
     if(this.moviePrompt){
       this.loading = true;
-      this.gameService.getGames(this.moviePrompt).subscribe(
+      this.gameService.recommendGames(this.moviePrompt).subscribe(
         (data) => {
           this.games = data ;
-          this.gameService.setGames(data);
            this.router.navigate(['/games'])},
         (error) => {
           console.error('Error fetching game recommendations:', error);

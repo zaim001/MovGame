@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.movigame.entity.Game;
+import com.movigame.repo.GameRepo;
 
 @Service
 public class GeminiService {
@@ -22,6 +23,9 @@ public class GeminiService {
     
     @Autowired
     private RawgService rawgService;
+    
+    @Autowired
+    private GameRepo gameRepo;
     
     @Value("${gemini.api.key}")
     private String geminiKey;
@@ -32,6 +36,7 @@ public class GeminiService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public List<Game> getGameRecommendations(String moviePrompt) {
+    	gameRepo.deleteAll();
         String apiUrl = apiUrlTemplate + "key=" + geminiKey;
         
         String prompt = "I liked " + moviePrompt + " movie. Can you recommend some games to play that have the same vibe? Give only titles.";
