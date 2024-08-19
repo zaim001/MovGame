@@ -1,0 +1,68 @@
+<!-- component -->
+<div class="flex h-screen bg-black text-white">
+    <!-- header -->
+    <app-navbar></app-navbar>
+    <!-- header ends here -->
+
+    <main class="flex-1 p-8 overflow-y-auto bg-gray-900">
+
+        <!-- Game Cover and Details -->
+        <div class="relative mb-6 w-full max-w-screen-lg mx-auto">
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+          <img src="../../assets/bg.jpg" alt="Game Cover" class="absolute inset-0 w-full h-full object-cover opacity-70" />
+          <div class="relative z-10 p-6">
+            <h1 class="text-5xl font-bold text-white mb-4">Game Title</h1>
+            <div class="flex items-center mb-4">
+              <img src="../../assets/bg.jpg" alt="Developer Logo" class="h-12 w-12 rounded-full mr-3" />
+              <div>
+                <p class="text-lg font-semibold text-gray-300">Developer Name</p>
+                <p class="text-sm text-gray-500">Release Date: August 14, 2024</p>
+              </div>
+            </div>
+            <div class="flex space-x-2 mb-4">
+              <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded">Action</span>
+              <span class="px-3 py-1 bg-red-600 text-white text-sm rounded">Adventure</span>
+            </div>
+            <p class="text-lg text-gray-200 mb-6">Game description and details go here. This should give an overview of the game's plot, gameplay mechanics, and any other notable features.</p>
+          </div>
+        </div>
+      
+        <!-- Game Screenshots -->
+        <div class="px-4 lg:px-0 max-w-screen-lg mx-auto mb-12">
+          <h2 class="text-3xl text-white font-semibold mb-6">Screenshots</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <img src="../../assets/bg.jpg" alt="Screenshot 1" class="w-full h-48 object-cover rounded-lg" />
+            <img src="../../assets/bg.jpg" alt="Screenshot 2" class="w-full h-48 object-cover rounded-lg" />
+            <img src="../../assets/bg.jpg" alt="Screenshot 3" class="w-full h-48 object-cover rounded-lg" />
+          </div>
+        </div>
+      
+        <!-- Game Details -->
+        <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed">
+          <h2 class="text-2xl font-semibold mb-4">Game Details</h2>
+          <p class="pb-4">Here you can include additional game details such as the game's story, setting, and important gameplay elements. This section is focused on providing a deeper dive into what makes the game interesting and unique.</p>
+          <p class="pb-4">Include information about the game's world, key characters, and any special mechanics or systems that set it apart from other games.</p>
+        </div>
+      
+        <!-- Game Features -->
+        <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed mt-12">
+          <h2 class="text-2xl font-semibold mb-4">Game Features</h2>
+          <ul class="list-disc list-inside space-y-2">
+            <li><strong>Feature 1:</strong> Description of a notable feature of the game.</li>
+            <li><strong>Feature 2:</strong> Additional details about another key feature or gameplay element.</li>
+            <li><strong>Feature 3:</strong> Further description of any other interesting or relevant features of the game.</li>
+          </ul>
+        </div>
+      
+        <!-- Reviews -->
+        <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed mt-12">
+          <h2 class="text-2xl font-semibold mb-4">Reviews</h2>
+          <p class="pb-4">Include some player reviews or critic quotes here. This section could be used to show user opinions or professional reviews of the game.</p>
+          <p class="pb-4">Another review or quote can be placed here to provide more context or feedback from the gaming community.</p>
+        </div>
+      
+      </main>
+      
+    <!-- main ends here -->
+
+  </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game } from '../models/game';
 import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
@@ -14,20 +14,29 @@ import { Route, Router } from '@angular/router';
 })
 export class LandingComponent {
 
+  loading : boolean = false;
   moviePrompt : string = ''
   games : Game[] = []
+
 
   constructor(private gameService : GameService, private router : Router){}
 
   getRecommendations(){
-    this.gameService.getGames(this.moviePrompt).subscribe(
-      (data) => {this.games = data ;
-        this.gameService.setGames(data);
-         this.router.navigate(['/games'])},
-      (error) => {
-        console.error('Error fetching game recommendations:', error);
-      }
-    )
-  }
+    if(this.moviePrompt){
+      this.loading = true;
+      this.gameService.getGames(this.moviePrompt).subscribe(
+        (data) => {
+          this.games = data ;
+          this.gameService.setGames(data);
+           this.router.navigate(['/games'])},
+        (error) => {
+          console.error('Error fetching game recommendations:', error);
+        }
+      )
+    }
+    else{alert("Enter Movie name")}
+    }
+   
+
 
 }
