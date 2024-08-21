@@ -5,13 +5,15 @@
     <!-- header ends here -->
 
     <main class="flex-1 p-8 overflow-y-auto bg-gray-900">
-
+       
         <!-- Game Cover and Details -->
+         
+          @if (game) {
         <div class="relative mb-6 w-full max-w-screen-lg mx-auto">
           <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
           <img src="../../assets/bg.jpg" alt="Game Cover" class="absolute inset-0 w-full h-full object-cover opacity-70" />
           <div class="relative z-10 p-6">
-            <h1 class="text-5xl font-bold text-white mb-4">Game Title</h1>
+            <h1 class="text-5xl font-bold text-white mb-4">{{game.name}}</h1>
             <div class="flex items-center mb-4">
               <img src="../../assets/bg.jpg" alt="Developer Logo" class="h-12 w-12 rounded-full mr-3" />
               <div>
@@ -60,7 +62,9 @@
           <p class="pb-4">Include some player reviews or critic quotes here. This section could be used to show user opinions or professional reviews of the game.</p>
           <p class="pb-4">Another review or quote can be placed here to provide more context or feedback from the gaming community.</p>
         </div>
+      }
       
+
       </main>
       
     <!-- main ends here -->

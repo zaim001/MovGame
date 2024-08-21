@@ -2,10 +2,12 @@ package com.movigame.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +17,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long rawgId;
 
    // private String slug;
     private String name;
@@ -24,7 +27,22 @@ public class Game {
     private Double rating;
     private List<String> genres;
     
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private GameDetails gameDetails;
     
+    
+	public GameDetails getGameDetails() {
+		return gameDetails;
+	}
+	public void setGameDetails(GameDetails gameDetails) {
+		this.gameDetails = gameDetails;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public List<String> getPlateforms() {
 		return plateforms;
 	}
@@ -60,6 +78,12 @@ public class Game {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Long getRawgId() {
+		return rawgId;
+	}
+	public void setRawgId(Long rawgId) {
+		this.rawgId = rawgId;
 	}
     
     

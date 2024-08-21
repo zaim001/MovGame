@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.movigame.entity.Game;
+import com.movigame.entity.GameDetails;
 import com.movigame.service.GeminiService;
 import com.movigame.service.RawgService;
 
@@ -46,11 +47,17 @@ public class GameController {
 	        return ResponseEntity.ok(games); // Return the list of all games
 	    }
 	    
-		@GetMapping("/game/{id}")
+		@GetMapping("/games/{id}")
 	    public ResponseEntity<Game> getGameById(@PathVariable("id") Long id) {
 	        Game game = rawgService.getGameById(id);
 	        return ResponseEntity.ok(game);
 	    }
+		@GetMapping("/games/details/{rawgId}")
+		public ResponseEntity<GameDetails> getGameDetailsByRawgId(@PathVariable("rawgId") Long rawgId) {
+		    GameDetails gamed = rawgService.getGameDetailsByRawgId(rawgId);
+		    return ResponseEntity.ok(gamed);
+		}
+
 
 
 }

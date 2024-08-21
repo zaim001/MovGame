@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movigame.entity.Game;
+import com.movigame.entity.GameDetails;
 import com.movigame.repo.GameRepo;
 
 @Service
@@ -47,7 +48,7 @@ public class RawgService {
         }
         return gameInfos;
     }
-    
+    //I always extract the first search result from Rawg.io
     private Game extractFirstResult(String responseBody) {
         try {
             JsonNode rootNode = objectMapper.readTree(responseBody);
@@ -65,6 +66,8 @@ public class RawgService {
 
     private Game createGameFromNode(JsonNode gameNode) {
         Game game = new Game();
+        game.setId(game.getId());
+        game.setRawgId(gameNode.path("id").asLong());
         game.setName(gameNode.path("name").asText());
         game.setReleased(gameNode.path("released").asText());
         game.setBackgroundImage(gameNode.path("background_image").asText());
@@ -97,6 +100,28 @@ public class RawgService {
     public Game getGameById(Long id) {
     	Game game = gameRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Game not found with ID: " + id));
     	return game;
+    }
+    
+    public GameDetails getGameDetailsByRawgId(Long rawgId) {
+        String url = rawgApiUrl + "/" + rawgId + "?key=" + rawgApiKey;
+        String response = restTemplate.getForObject(url, String.class);
+        return extractGameDetails(response);
+    }
+    private GameDetails extractGameDetails(String responseBody) {
+        try {
+            JsonNode gameNode = objectMapper.readTree(responseBody);
+            return createGameDetailsFromNode(gameNode);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract game details", e);
+        }
+    }
+    private GameDetails createGameDetailsFromNode(JsonNode gameNode) {
+    	
+        GameDetails gamedetails = new GameDetails();
+        gamedetails.setRawgId(gameNode.path("id").asLong());
+        gamedetails.setGame(gamedetails.getGame());
+        gamedetails.setDescription(gameNode.path("description").asText());
+        return gamedetails;
     }
 
 }

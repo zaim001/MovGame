@@ -18,7 +18,7 @@ export const routes: Routes = [
         component : GamesListComponent
     },
     {
-        path : 'game',
+        path : 'games/:id',
         component : GameDetailComponent
     }
 ];
