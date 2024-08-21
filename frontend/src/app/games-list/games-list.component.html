@@ -11,7 +11,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <!-- Game Card (repeat this for each game) -->
          @for (game of games; track game.id) {
-        <div class="bg-gray-800 rounded-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105" [routerLink]="['/games', game.id]">
+        <div class="bg-gray-800 rounded-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105" [routerLink]="['/games/details', game.rawgId]">
           <div class="relative pb-[56.25%]">
             <img [src]="game.backgroundImage" alt="Game Title" class="absolute inset-0 w-full h-full object-cover" >
           </div>
@@ -34,7 +34,6 @@
             </div>
           </div>
         </div>
-     
       }
       </div>
     </main>

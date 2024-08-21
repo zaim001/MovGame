@@ -26,6 +26,8 @@ public class Game {
     private String backgroundImage;
     private Double rating;
     private List<String> genres;
+    private List<String> shortScreenshots;
+    
     
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private GameDetails gameDetails;
@@ -84,6 +86,12 @@ public class Game {
 	}
 	public void setRawgId(Long rawgId) {
 		this.rawgId = rawgId;
+	}
+	public List<String> getShortScreenshots() {
+		return shortScreenshots;
+	}
+	public void setShortScreenshots(List<String> shortScreenshots) {
+		this.shortScreenshots = shortScreenshots;
 	}
     
     

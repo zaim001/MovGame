@@ -10,4 +10,5 @@ import com.movigame.entity.Game;
 
 public interface GameRepo extends JpaRepository<Game,Long> {
 	Optional<Game> findById(Long id);
+	Optional<Game> findByRawgId(Long rawgId);
 }

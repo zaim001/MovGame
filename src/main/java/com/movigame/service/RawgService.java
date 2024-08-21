@@ -91,6 +91,13 @@ public class RawgService {
         }
         game.setPlateforms(platforms);
         
+        List<String> shortScreenshots = new ArrayList<>();
+        JsonNode shortScreenshotsNode = gameNode.path("short_screenshots");
+        for (JsonNode screenshotNode : shortScreenshotsNode) {
+        	shortScreenshots.add(screenshotNode.path("image").asText());
+        }
+        game.setShortScreenshots(shortScreenshots);
+        
         return game;
     }
     public List<Game> getAllGames() {
@@ -118,9 +125,18 @@ public class RawgService {
     private GameDetails createGameDetailsFromNode(JsonNode gameNode) {
     	
         GameDetails gamedetails = new GameDetails();
-        gamedetails.setRawgId(gameNode.path("id").asLong());
-        gamedetails.setGame(gamedetails.getGame());
+        
+        Long rawgId = gameNode.path("id").asLong();
+        gamedetails.setRawgId(rawgId);
+        
+        Game game = gameRepo.findByRawgId(rawgId)
+                .orElseThrow(() -> new IllegalArgumentException("Game not found for rawgId: " + rawgId));
+        gamedetails.setGame(game);
+        
         gamedetails.setDescription(gameNode.path("description").asText());
+        gamedetails.setBackground_image_additional(gameNode.path("background_image_additional").asText());
+        
+        
         return gamedetails;
     }
 

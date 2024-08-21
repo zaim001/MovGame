@@ -4,6 +4,7 @@ import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { Game } from '../models/game';
 import { RouterModule } from '@angular/router';
+import { GameDetails } from '../models/gamedetails';
 
 @Component({
   selector: 'app-games-list',
@@ -15,7 +16,7 @@ import { RouterModule } from '@angular/router';
 export class GamesListComponent implements OnInit {
 
   games: Game[] = [];
-  @Input() game! : Game;
+ 
 
   constructor(private gameService: GameService) {}
 

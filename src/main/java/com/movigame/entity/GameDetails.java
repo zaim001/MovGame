@@ -21,6 +21,8 @@ public class GameDetails {
 	@JoinColumn(name = "game_id")
 	private Game game;
 	private String Description;
+	
+	private String background_image_additional;
 
     public Game getGame() {
         return game;
@@ -44,6 +46,14 @@ public class GameDetails {
 
 	public void setRawgId(Long rawgId) {
 		this.rawgId = rawgId;
+	}
+
+	public String getBackground_image_additional() {
+		return background_image_additional;
+	}
+
+	public void setBackground_image_additional(String background_image_additional) {
+		this.background_image_additional = background_image_additional;
 	}
 
 
