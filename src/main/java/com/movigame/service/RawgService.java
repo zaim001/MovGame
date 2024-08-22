@@ -72,6 +72,7 @@ public class RawgService {
         game.setReleased(gameNode.path("released").asText());
         game.setBackgroundImage(gameNode.path("background_image").asText());
         game.setRating(gameNode.path("rating").asDouble());
+    
         
         List<String> genres = new ArrayList<>();
         JsonNode genresNode = gameNode.path("genres");
@@ -101,7 +102,7 @@ public class RawgService {
         return game;
     }
     public List<Game> getAllGames() {
-        return gameRepo.findAll(); // Fetch all games from the database
+        return gameRepo.findAll();
     }
     
     public Game getGameById(Long id) {
@@ -114,6 +115,7 @@ public class RawgService {
         String response = restTemplate.getForObject(url, String.class);
         return extractGameDetails(response);
     }
+    
     private GameDetails extractGameDetails(String responseBody) {
         try {
             JsonNode gameNode = objectMapper.readTree(responseBody);
@@ -122,6 +124,7 @@ public class RawgService {
             throw new RuntimeException("Failed to extract game details", e);
         }
     }
+    
     private GameDetails createGameDetailsFromNode(JsonNode gameNode) {
     	
         GameDetails gamedetails = new GameDetails();
@@ -135,6 +138,7 @@ public class RawgService {
         
         gamedetails.setDescription(gameNode.path("description").asText());
         gamedetails.setBackground_image_additional(gameNode.path("background_image_additional").asText());
+        gamedetails.setWebsite(gameNode.path("website").asText());
         
         
         return gamedetails;

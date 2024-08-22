@@ -2,6 +2,7 @@ package com.movigame.entity;
 
 import java.util.List;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,6 @@ public class Game {
     private Long id;
     private Long rawgId;
 
-   // private String slug;
     private String name;
     private List<String> plateforms;
     private String released;

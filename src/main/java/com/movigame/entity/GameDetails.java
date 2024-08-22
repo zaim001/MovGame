@@ -21,6 +21,7 @@ public class GameDetails {
 	@JoinColumn(name = "game_id")
 	private Game game;
 	private String Description;
+	private String website;
 	
 	private String background_image_additional;
 
@@ -54,6 +55,14 @@ public class GameDetails {
 
 	public void setBackground_image_additional(String background_image_additional) {
 		this.background_image_additional = background_image_additional;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
 	}
 
 

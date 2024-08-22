@@ -6,4 +6,5 @@ export interface GameDetails{
     game : Game;
     description : string;
     background_image_additional : string;
+    website: string;
 }
