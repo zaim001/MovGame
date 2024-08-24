@@ -1,7 +1,9 @@
 package com.movigame.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,8 +12,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.movigame.entity.Developer;
 import com.movigame.entity.Game;
 import com.movigame.entity.GameDetails;
+
 import com.movigame.repo.GameRepo;
 
 @Service
@@ -19,6 +23,10 @@ public class RawgService {
 
 	@Autowired
 	private GameRepo gameRepo;
+
+	
+	@Autowired
+	private YoutubeService ytbService;
 	
     @Value("${rawg.api.url}")
     private String rawgApiUrl;
@@ -38,7 +46,7 @@ public class RawgService {
     public List<Game> getGameInfo(List<String> gameTitles) {
         List<Game> gameInfos = new ArrayList<>();
         for (String gameTitle : gameTitles) {
-            String url = rawgApiUrl + "?key=" + rawgApiKey + "&search=" + gameTitle;
+            String url = rawgApiUrl + "games?key=" + rawgApiKey + "&search=" + gameTitle;
             String response = restTemplate.getForObject(url, String.class);
             Game game = extractFirstResult(response);
             if (game != null) {
@@ -111,7 +119,7 @@ public class RawgService {
     }
     
     public GameDetails getGameDetailsByRawgId(Long rawgId) {
-        String url = rawgApiUrl + "/" + rawgId + "?key=" + rawgApiKey;
+        String url = rawgApiUrl + "games/" + rawgId + "?key=" + rawgApiKey;
         String response = restTemplate.getForObject(url, String.class);
         return extractGameDetails(response);
     }
@@ -135,13 +143,44 @@ public class RawgService {
         Game game = gameRepo.findByRawgId(rawgId)
                 .orElseThrow(() -> new IllegalArgumentException("Game not found for rawgId: " + rawgId));
         gamedetails.setGame(game);
-        
+             
         gamedetails.setDescription(gameNode.path("description").asText());
         gamedetails.setBackground_image_additional(gameNode.path("background_image_additional").asText());
         gamedetails.setWebsite(gameNode.path("website").asText());
         
         
+        String trailerUrl = ytbService.searchGameTrailer(game.getName());
+        gamedetails.setTrailer(trailerUrl);
+        
+        List<Developer> developer = getGameDevelopers(rawgId);
+        gamedetails.setDevs(developer);
+       
+         
         return gamedetails;
+    }
+    private List<Developer> getGameDevelopers(Long rawgId) {
+        String url = rawgApiUrl + "games/" + rawgId + "/development-team" + "?key=" + rawgApiKey;
+        String response = restTemplate.getForObject(url, String.class);
+        List<Developer> developers = new ArrayList<>();
+        try {
+            JsonNode root = objectMapper.readTree(response);
+            JsonNode developersNode = root.path("results");
+
+            if (developersNode.isArray()) {
+                for (JsonNode developerNode : developersNode) {
+                    Developer developer = new Developer();
+                    //developer.setId(developerNode.path("id").asLong());
+                    developer.setName(developerNode.path("name").asText());
+                    developer.setImage(developerNode.path("image").asText());
+                    developers.add(developer);
+                }
+            }
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+        }
+
+        return developers;
     }
 
 }

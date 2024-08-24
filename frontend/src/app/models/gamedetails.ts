@@ -7,4 +7,5 @@ export interface GameDetails{
     description : string;
     background_image_additional : string;
     website: string;
+    trailer: string;
 }

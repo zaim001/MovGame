@@ -2,7 +2,9 @@ package com.movigame.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import com.movigame.entity.Game;
 import com.movigame.entity.GameDetails;
 import com.movigame.service.GeminiService;
 import com.movigame.service.RawgService;
+import com.movigame.service.YoutubeService;
 
 
 @RestController
@@ -29,6 +32,9 @@ public class GameController {
 	
 	@Autowired
 	RawgService rawgService;
+	
+	@Autowired
+	YoutubeService ytService;
 	
 	 
 	    public GameController(GeminiService geminiService) {
@@ -58,6 +64,7 @@ public class GameController {
 		    return ResponseEntity.ok(gamed);
 		}
 
+	
 
 
 }

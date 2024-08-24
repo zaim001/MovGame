@@ -4,6 +4,7 @@ import { GameService } from '../services/game.service';
 import { Game } from '../models/game';
 import { ActivatedRoute } from '@angular/router';
 import { GameDetails } from '../models/gamedetails';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-game-detail',
@@ -16,7 +17,7 @@ export class GameDetailComponent {
 
   gameDetails!: GameDetails;
 
-  constructor(private gameService:GameService,private route: ActivatedRoute){}
+  constructor(private gameService:GameService,private route: ActivatedRoute, private sanitizer: DomSanitizer){}
 
   ngOnInit(){
     const rawgId = Number(this.route.snapshot.paramMap.get('rawgId'));
@@ -28,5 +29,8 @@ export class GameDetailComponent {
       (details)=>{this.gameDetails = details}
     )
   }
-
+  getSafeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+    
 }

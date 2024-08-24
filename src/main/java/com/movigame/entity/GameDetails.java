@@ -1,10 +1,15 @@
 package com.movigame.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -12,6 +17,7 @@ import jakarta.persistence.Table;
 @Table(name = "GameDetails")
 public class GameDetails {
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -20,10 +26,18 @@ public class GameDetails {
 	@OneToOne
 	@JoinColumn(name = "game_id")
 	private Game game;
+	@OneToMany(mappedBy = "gameDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Developer> devs;
+	
 	private String Description;
 	private String website;
 	
 	private String background_image_additional;
+	
+	private String trailer;
+	private List<String> developerName;
+	
+	
 
     public Game getGame() {
         return game;
@@ -65,6 +79,30 @@ public class GameDetails {
 		this.website = website;
 	}
 
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+	public List<String> getDeveloperName() {
+		return developerName;
+	}
+
+	public void setDeveloperName(List<String> developerName) {
+		this.developerName = developerName;
+	}
+	
+	public List<Developer> getDevs() {
+		return devs;
+	}
+
+	public void setDevs(List<Developer> devs) {
+		this.devs = devs;
+	}
+	
 
 
 	
