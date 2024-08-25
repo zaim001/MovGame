@@ -5,11 +5,12 @@ import { Game } from '../models/game';
 import { ActivatedRoute } from '@angular/router';
 import { GameDetails } from '../models/gamedetails';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent,CommonModule],
   templateUrl: './game-detail.component.html',
   styleUrl: './game-detail.component.css'
 })
