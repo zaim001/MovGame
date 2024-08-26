@@ -71,7 +71,7 @@
             <a [href]="gameDetails.website">{{gameDetails.website}}</a>
           </div>
       
-        <!-- Game Features -->
+        <!-- Game Plateforms -->
         <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed mt-12">
           <h2 class="text-2xl font-semibold mb-4">Game Plateforms</h2>
           <ul class="list-disc list-inside space-y-2">
@@ -80,6 +80,32 @@
           }
           </ul>
         </div>
+                <!-- Game Developers -->
+                <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed mt-12">
+                  <h2 class="text-2xl font-semibold mb-4">Game Developers</h2>
+                  <ul role="list" class="p-6 flex flex-wrap gap-4">
+                    @for (dev of gameDetails.devs; track dev) {
+                      <li class="flex flex-col items-center">
+                        <img 
+                          *ngIf="dev.image && dev.image !== 'null'" 
+                          class="h-16 w-16 rounded-full" 
+                          [src]="dev.image" 
+                          alt="{{dev.name}}" 
+                        />
+                        <img 
+                          *ngIf="!dev.image || dev.image === 'null'" 
+                          class="h-16 w-16 rounded-full" 
+                          src="../../assets/none.jpg" 
+                          alt="{{dev.name}}" 
+                        />
+                        <div class="mt-2 text-center">
+                          <p class="text-sm font-medium text-slate-300">{{dev.name}}</p>
+                          <p class="text-sm text-slate-500 truncate">{{dev.name}}</p>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                </div>
       
         <!-- Reviews -->
         <div class="px-4 lg:px-0 max-w-screen-lg mx-auto text-gray-300 text-lg leading-relaxed mt-12">

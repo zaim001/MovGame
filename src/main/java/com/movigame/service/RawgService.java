@@ -34,14 +34,12 @@ public class RawgService {
     @Value("${rawg.api.key}")
     private String rawgApiKey;
 
-  
-    private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    public RawgService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-        this.objectMapper = new ObjectMapper();
-    }
+
 
     public List<Game> getGameInfo(List<String> gameTitles) {
         List<Game> gameInfos = new ArrayList<>();
@@ -106,9 +104,11 @@ public class RawgService {
         	shortScreenshots.add(screenshotNode.path("image").asText());
         }
         game.setShortScreenshots(shortScreenshots);
+       ;
         
         return game;
     }
+    
     public List<Game> getAllGames() {
         return gameRepo.findAll();
     }
@@ -121,12 +121,8 @@ public class RawgService {
     public GameDetails getGameDetailsByRawgId(Long rawgId) {
         String url = rawgApiUrl + "games/" + rawgId + "?key=" + rawgApiKey;
         String response = restTemplate.getForObject(url, String.class);
-        return extractGameDetails(response);
-    }
-    
-    private GameDetails extractGameDetails(String responseBody) {
         try {
-            JsonNode gameNode = objectMapper.readTree(responseBody);
+            JsonNode gameNode = objectMapper.readTree(response);
             return createGameDetailsFromNode(gameNode);
         } catch (Exception e) {
             throw new RuntimeException("Failed to extract game details", e);

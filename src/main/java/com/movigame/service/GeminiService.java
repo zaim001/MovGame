@@ -25,6 +25,9 @@ public class GeminiService {
     private RawgService rawgService;
     
     @Autowired
+    private ObjectMapper objectMapper;
+    
+    @Autowired
     private GameRepo gameRepo;
     
     @Value("${gemini.api.key}")
@@ -33,8 +36,7 @@ public class GeminiService {
     @Value("${gemini.api.url}")
     private String apiUrlTemplate;
     
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
+   
     public List<Game> getGameRecommendations(String moviePrompt) {
     	gameRepo.deleteAll();
         String apiUrl = apiUrlTemplate + "key=" + geminiKey;
