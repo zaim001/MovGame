@@ -18,14 +18,13 @@ import com.movigame.repo.GameRepo;
 
 @Service
 public class GeminiService {
-    @Autowired
-    private RestTemplate restTemplate;
     
     @Autowired
     private RawgService rawgService;
     
-    @Autowired
-    private ObjectMapper objectMapper;
+    RestTemplate restTemplate = new RestTemplate();
+	
+	private final ObjectMapper objectMapper = new ObjectMapper();
     
     @Autowired
     private GameRepo gameRepo;

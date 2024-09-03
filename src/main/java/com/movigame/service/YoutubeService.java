@@ -15,11 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class YoutubeService {
 	
-	@Autowired
-    private RestTemplate restTemplate;
+	RestTemplate restTemplate = new RestTemplate();
 	
-	@Autowired
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${youtube.api.key}")
     private String apiKey;

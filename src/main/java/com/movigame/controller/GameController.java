@@ -28,14 +28,11 @@ import com.movigame.service.YoutubeService;
 public class GameController {
 	
 	@Autowired
-	GeminiService geminiService;
+	private GeminiService geminiService;
 	
 	@Autowired
-	RawgService rawgService;
-	
-	@Autowired
-	YoutubeService ytService;
-	
+	private RawgService rawgService;
+		
 	 
 	    public GameController(GeminiService geminiService) {
 	        this.geminiService = geminiService;

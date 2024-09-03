@@ -34,10 +34,9 @@ public class RawgService {
     @Value("${rawg.api.key}")
     private String rawgApiKey;
 
-    @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
-    private ObjectMapper objectMapper;
+    RestTemplate restTemplate = new RestTemplate();
+	
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 
 
