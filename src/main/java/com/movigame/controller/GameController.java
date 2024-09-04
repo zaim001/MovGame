@@ -22,7 +22,7 @@ import com.movigame.service.YoutubeService;
 
 @RestController
 @CrossOrigin(
-        origins = "https://movgame-production.up.railway.app/",
+        origins = "https://movigames.netlify.app/",
         allowedHeaders = "*" 
 )
 public class GameController {
