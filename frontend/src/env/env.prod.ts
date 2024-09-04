@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://movgame-production.up.railway.app/'
+    apiUrl: 'https://movgame-production.up.railway.app'
   };
