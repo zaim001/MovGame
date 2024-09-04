@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../models/game';
 import { GameDetails } from '../models/gamedetails';
+import { environment } from '../../env/env.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
