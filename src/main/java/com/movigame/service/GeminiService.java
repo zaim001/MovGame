@@ -18,7 +18,9 @@ import com.movigame.repo.GameRepo;
 
 @Service
 public class GeminiService {
-    @Autowired
+	
+
+	@Autowired
     private RestTemplate restTemplate;
     
     @Autowired

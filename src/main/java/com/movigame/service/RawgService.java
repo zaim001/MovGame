@@ -20,11 +20,11 @@ import com.movigame.repo.GameRepo;
 
 @Service
 public class RawgService {
+	
 
 	@Autowired
 	private GameRepo gameRepo;
 
-	
 	@Autowired
 	private YoutubeService ytbService;
 	

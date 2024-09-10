@@ -3,12 +3,12 @@ import { Game } from '../models/game';
 import { GameService } from '../services/game.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })

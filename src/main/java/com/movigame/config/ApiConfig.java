@@ -11,13 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ApiConfig {
 	
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+	 RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 	
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
 
 }

@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { GamesListComponent } from './games-list/games-list.component';
 import { LandingComponent } from './landing/landing.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -18,7 +20,11 @@ export const routes: Routes = [
         component : GamesListComponent
     },
     {
-        path : 'games/details/:rawgId',
-        component : GameDetailComponent
+        path : 'signin',
+        component : LoginComponent
+    },
+    {
+        path : 'register',
+        component : RegisterComponent
     }
 ];

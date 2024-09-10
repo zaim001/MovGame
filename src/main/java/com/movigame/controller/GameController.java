@@ -27,19 +27,11 @@ import com.movigame.service.YoutubeService;
 )
 public class GameController {
 	
-	@Autowired
-	GeminiService geminiService;
-	
-	@Autowired
-	RawgService rawgService;
-	
-	@Autowired
-	YoutubeService ytService;
-	
-	 
-	    public GameController(GeminiService geminiService) {
-	        this.geminiService = geminiService;
-	    }
+    @Autowired
+    private GeminiService geminiService;
+
+    @Autowired
+    private RawgService rawgService;
 	
 	    @PostMapping("/recommend")
 	    public ResponseEntity<List<Game>> getGameRecommendations(@RequestBody String moviePrompt) {
