@@ -29,21 +29,23 @@ public class UserService implements UserDetailsService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepo.save(user);
 	}
-	public Optional<User> findByUsername(String username) {
-	    return Optional.ofNullable(userRepo.findUserByUsername(username));
+	public Optional<User> findByEmail(String email) {
+	    return Optional.ofNullable(userRepo.findUserByEmail(email));
 	}
 
+
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepo.findUserByUsername(username);
-		 if (user == null) {
-	            throw new UsernameNotFoundException("User not found");
-	        }
-	        return org.springframework.security.core.userdetails.User
-	                .withUsername(user.getUsername())
-	                .password(user.getPassword())
-	                .authorities("USER")
-	                .build();
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	    User user = userRepo.findUserByEmail(email);
+	    if (user == null) {
+	        throw new UsernameNotFoundException("User not found with email: " + email);
 	    }
+	    return org.springframework.security.core.userdetails.User
+	            .withUsername(user.getEmail())
+	            .password(user.getPassword())
+	            .authorities("USER")
+	            .build();
+	}
+	
 	
 }
